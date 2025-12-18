@@ -10,9 +10,15 @@ async function getCategories() {
     },
   });
 
+  // Convert Date to string for serialization
+  const serializedCategories = categories.map(cat => ({
+    ...cat,
+    createdAt: cat.createdAt.toISOString(),
+  }));
+
   return {
     success: true,
-    data: categories,
+    data: serializedCategories,
   };
 }
 
