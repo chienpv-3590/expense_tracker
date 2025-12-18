@@ -84,9 +84,21 @@ npx prisma db seed
 
 ### Production (PostgreSQL)  
 ```bash
-# Use direct connection (port 5432, not pooled 6543)
+# Easy way - use script
+./scripts/seed-production.sh
+
+# Manual way - use direct connection (port 5432, not pooled 6543)
 DATABASE_URL="postgres://...@host:5432/db" npx prisma migrate deploy
 DATABASE_URL="postgres://...@host:5432/db" npx prisma db seed
 ```
 
 **Note**: Always use direct connection for migrations, pooled connection for runtime.
+
+## Production Database Check
+
+Verify categories exist on production:
+```bash
+# Check via Supabase dashboard
+# Or use Prisma Studio with production URL
+DATABASE_URL="postgres://..." npx prisma studio
+```
