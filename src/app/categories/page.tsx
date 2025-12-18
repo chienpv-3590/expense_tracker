@@ -3,6 +3,10 @@ import { Button } from '@/components/ui/Button';
 import { CategoryList } from '@/components/categories/CategoryList';
 import { prisma } from '@/lib/prisma';
 
+// Disable caching for this page to always show fresh data
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 async function getCategories() {
   const categories = await prisma.category.findMany({
     orderBy: {

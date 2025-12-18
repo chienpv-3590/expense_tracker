@@ -24,8 +24,18 @@ export function CategoryList({ categories }: CategoryListProps) {
   const [deleteError, setDeleteError] = useState<string | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // First 9 categories are default (seeded)
-  const defaultCategoryIds = categories.slice(0, 9).map((c) => c.id);
+  // Default category names (seeded categories)
+  const defaultCategoryNames = [
+    'Lương',
+    'Thu nhập khác',
+    'Ăn uống',
+    'Di chuyển',
+    'Giải trí',
+    'Hóa đơn',
+    'Mua sắm',
+    'Y tế',
+    'Chi phí khác',
+  ];
 
   const handleDelete = async (id: string) => {
     setIsDeleting(true);
@@ -96,7 +106,7 @@ export function CategoryList({ categories }: CategoryListProps) {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {categories.map((category) => {
-              const isDefault = defaultCategoryIds.includes(category.id);
+              const isDefault = defaultCategoryNames.includes(category.name);
               const typeBadge =
                 category.type === 'income'
                   ? 'bg-green-100 text-green-800 border-green-300'
@@ -152,7 +162,7 @@ export function CategoryList({ categories }: CategoryListProps) {
       {/* Mobile Cards */}
       <div className="md:hidden p-4 space-y-3">
         {categories.map((category) => {
-          const isDefault = defaultCategoryIds.includes(category.id);
+          const isDefault = defaultCategoryNames.includes(category.name);
           const typeBadge =
             category.type === 'income'
               ? 'bg-green-100 text-green-800 border-green-300'
