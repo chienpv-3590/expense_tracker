@@ -4,25 +4,17 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
 async function getTransaction(id: string) {
-  const transaction = await prisma.transaction.findUnique({
+  return await prisma.transaction.findUnique({
     where: { id },
     include: { category: true },
   });
-  
-  const res = { ok: !!transaction, json: async () => ({ success: !!transaction, data: transaction }) };
-
-  if (!res.ok) {
-    return null;
-  }
-
-  return res.json();
 }
 
 export default async function EditTransactionPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const response = await getTransaction(id);
+  const transaction = await getTransaction(id);
 
-  if (!response || !response.success) {
+  if (!transaction) {
     notFound();
   }
 
@@ -35,7 +27,7 @@ export default async function EditTransactionPage({ params }: { params: Promise<
       </div>
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
-          <TransactionForm mode="edit" initialData={response.data} />
+          <TransactionForm mode="edit" initialData={transaction} />
         </div>
       </div>
     </div>

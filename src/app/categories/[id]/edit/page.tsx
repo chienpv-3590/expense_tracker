@@ -4,24 +4,16 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
 async function getCategory(id: string) {
-  const category = await prisma.category.findUnique({
+  return await prisma.category.findUnique({
     where: { id },
   });
-  
-  const res = { ok: !!category, json: async () => ({ success: !!category, data: category }) };
-
-  if (!res.ok) {
-    return null;
-  }
-
-  return res.json();
 }
 
 export default async function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const response = await getCategory(id);
+  const category = await getCategory(id);
 
-  if (!response || !response.success) {
+  if (!category) {
     notFound();
   }
 
@@ -39,9 +31,9 @@ export default async function EditCategoryPage({ params }: { params: Promise<{ i
           <CategoryForm
             mode="edit"
             initialData={{
-              id: response.data.id,
-              name: response.data.name,
-              type: response.data.type,
+              id: category.id,
+              name: category.name,
+              type: category.type,
             }}
           />
         </div>
