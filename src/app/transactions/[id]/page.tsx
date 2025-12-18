@@ -6,10 +6,20 @@ import { Button } from '@/components/ui/Button';
 import { DeleteTransactionButton } from '@/components/transactions/DeleteTransactionButton';
 
 async function getTransaction(id: string) {
-  return await prisma.transaction.findUnique({
+  const transaction = await prisma.transaction.findUnique({
     where: { id },
     include: { category: true },
   });
+
+  if (!transaction) return null;
+
+  // Serialize dates for client component
+  return {
+    ...transaction,
+    date: transaction.date.toISOString(),
+    createdAt: transaction.createdAt.toISOString(),
+    updatedAt: transaction.updatedAt.toISOString(),
+  };
 }
 
 export default async function TransactionDetailPage({
