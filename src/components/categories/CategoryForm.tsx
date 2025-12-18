@@ -2,9 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { Button } from '@/components/ui/Button';
+import { LoadingSpinner } from '@/components/ui/Loading';
 
 interface CategoryFormProps {
   mode: 'create' | 'edit';
@@ -51,9 +53,15 @@ export function CategoryForm({ mode, initialData }: CategoryFormProps) {
       const data = await res.json();
 
       if (data.success) {
+        toast.success(
+          mode === 'create' 
+            ? '✅ Tạo danh mục thành công!' 
+            : '✅ Cập nhật danh mục thành công!'
+        );
         router.push('/categories');
         router.refresh();
       } else {
+        toast.error(data.error || '❌ Đã xảy ra lỗi');
         setError(data.error || 'Đã xảy ra lỗi');
         if (data.details) {
           const fieldErrors: Record<string, string> = {};
@@ -64,6 +72,7 @@ export function CategoryForm({ mode, initialData }: CategoryFormProps) {
         }
       }
     } catch (error) {
+      toast.error('❌ Không thể kết nối đến máy chủ');
       setError('Không thể kết nối đến máy chủ');
     } finally {
       setIsLoading(false);
@@ -118,11 +127,19 @@ export function CategoryForm({ mode, initialData }: CategoryFormProps) {
           variant="secondary"
           onClick={() => router.back()}
           fullWidth
+          disabled={isLoading}
         >
           Hủy
         </Button>
         <Button type="submit" disabled={isLoading} fullWidth>
-          {isLoading ? 'Đang lưu...' : mode === 'create' ? 'Tạo danh mục' : 'Cập nhật'}
+          {isLoading ? (
+            <span className="flex items-center justify-center gap-2">
+              <LoadingSpinner size="sm" />
+              Đang lưu...
+            </span>
+          ) : (
+            mode === 'create' ? 'Tạo danh mục' : 'Cập nhật'
+          )}
         </Button>
       </div>
     </form>

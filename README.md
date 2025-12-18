@@ -70,14 +70,12 @@
 - ✅ Accessibility testing guide (WCAG 2.1 AA)
 - ✅ Error handling & edge case tests
 
-### 🚧 Đang phát triển
-
 **Phase 10: Polish & Documentation**
-- ⏳ Loading states và skeletons
-- ⏳ Empty state illustrations
-- ⏳ Toast notifications
+- ✅ Loading states và skeletons (spinner, disabled forms, skeleton loaders)
+- ✅ Empty state illustrations (transaction list, search results, category breakdown)
+- ✅ Toast notifications (react-hot-toast: success/error toasts for all operations)
 - ⏳ Code quality improvements
-- ✅ Comprehensive README
+- ⏳ Comprehensive README
 
 **Phase 11: Deployment**
 - ⏳ Production build optimization

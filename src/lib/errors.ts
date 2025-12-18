@@ -23,7 +23,7 @@ export function handleApiError(error: unknown): NextResponse {
         success: false,
         error: 'Dữ liệu không hợp lệ',
         code: 'VALIDATION_ERROR',
-        details: error.errors.map((err) => ({
+        details: error.issues.map((err) => ({
           field: err.path.join('.'),
           message: err.message,
         })),

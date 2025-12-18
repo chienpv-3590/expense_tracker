@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { TransactionWithCategory } from '@/types/transaction';
 import { formatCurrency, formatDate } from '@/lib/formatters';
 import { Button } from '@/components/ui/Button';
@@ -25,13 +26,15 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
       });
 
       if (res.ok) {
+        toast.success('✅ Xóa giao dịch thành công!');
         router.refresh();
         setIsDeleteModalOpen(false);
       } else {
-        alert('Không thể xóa giao dịch');
+        const data = await res.json();
+        toast.error(data.error || '❌ Không thể xóa giao dịch');
       }
     } catch (error) {
-      alert('Đã xảy ra lỗi khi xóa giao dịch');
+      toast.error('❌ Đã xảy ra lỗi khi xóa giao dịch');
     } finally {
       setIsDeleting(false);
     }

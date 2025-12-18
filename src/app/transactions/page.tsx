@@ -3,6 +3,7 @@ import { TransactionList } from '@/components/transactions/TransactionList';
 import { Button } from '@/components/ui/Button';
 import FilterBar from '@/components/transactions/FilterBar';
 import ExportButton from '@/components/transactions/ExportButton';
+import { EmptyTransactionList, EmptySearchResults } from '@/components/ui/EmptyState';
 import { prisma } from '@/lib/prisma';
 
 async function getCategories() {
@@ -166,40 +167,51 @@ export default async function TransactionsPage(props: {
 
         {response.success ? (
           <>
-            <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-              <TransactionList
-                transactions={response.data.items}
-                pagination={response.data}
-              />
-            </div>
-
-            {/* Pagination */}
-            {response.data.totalPages > 1 && (
-              <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
-                {currentPage > 1 && (
-                  <Link href={`/transactions?page=${currentPage - 1}`}>
-                    <Button variant="secondary" className="w-full sm:w-auto">
-                      ← Trang trước
-                    </Button>
-                  </Link>
-                )}
-                <div className="flex items-center gap-2">
-                  <span className="px-4 py-2 bg-black text-white font-medium rounded-lg">
-                    {currentPage}
-                  </span>
-                  <span className="text-gray-500">/</span>
-                  <span className="px-4 py-2 bg-gray-100 text-gray-900 font-medium rounded-lg border border-gray-300">
-                    {response.data.totalPages}
-                  </span>
+            {response.data.items.length === 0 ? (
+              // Check if this is a filtered search or truly empty
+              Object.values(searchParams).some(v => v) ? (
+                <EmptySearchResults />
+              ) : (
+                <EmptyTransactionList />
+              )
+            ) : (
+              <>
+                <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                  <TransactionList
+                    transactions={response.data.items}
+                    pagination={response.data}
+                  />
                 </div>
-                {currentPage < response.data.totalPages && (
-                  <Link href={`/transactions?page=${currentPage + 1}`}>
-                    <Button variant="secondary" className="w-full sm:w-auto">
-                      Trang sau →
-                    </Button>
-                  </Link>
+
+                {/* Pagination */}
+                {response.data.totalPages > 1 && (
+                  <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-8">
+                    {currentPage > 1 && (
+                      <Link href={`/transactions?page=${currentPage - 1}`}>
+                        <Button variant="secondary" className="w-full sm:w-auto">
+                          ← Trang trước
+                        </Button>
+                      </Link>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <span className="px-4 py-2 bg-black text-white font-medium rounded-lg">
+                        {currentPage}
+                      </span>
+                      <span className="text-gray-500">/</span>
+                      <span className="px-4 py-2 bg-gray-100 text-gray-900 font-medium rounded-lg border border-gray-300">
+                        {response.data.totalPages}
+                      </span>
+                    </div>
+                    {currentPage < response.data.totalPages && (
+                      <Link href={`/transactions?page=${currentPage + 1}`}>
+                        <Button variant="secondary" className="w-full sm:w-auto">
+                          Trang sau →
+                        </Button>
+                      </Link>
+                    )}
+                  </div>
                 )}
-              </div>
+              </>
             )}
           </>
         ) : (

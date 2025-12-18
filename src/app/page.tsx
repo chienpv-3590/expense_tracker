@@ -5,6 +5,10 @@ import SummaryCards from '@/components/dashboard/SummaryCards';
 import TimeFilter from '@/components/dashboard/TimeFilter';
 import CategoryBreakdown from '@/components/dashboard/CategoryBreakdown';
 import {
+  SummaryCardsSkeleton,
+  CategoryBreakdownSkeleton,
+} from '@/components/ui/Loading';
+import {
   Granularity,
   getDateRange,
   getPreviousPeriod,
@@ -105,9 +109,10 @@ export default function HomePage() {
 
         {/* Loading State */}
         {loading && (
-          <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900"></div>
-          </div>
+          <>
+            <SummaryCardsSkeleton />
+            <CategoryBreakdownSkeleton />
+          </>
         )}
 
         {/* Error State */}

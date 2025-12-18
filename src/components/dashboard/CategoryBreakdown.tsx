@@ -1,3 +1,5 @@
+import { EmptyCategoryBreakdown } from '@/components/ui/EmptyState';
+
 interface CategoryData {
   categoryId: string;
   categoryName: string;
@@ -104,23 +106,27 @@ export default function CategoryBreakdown({
         Phân tích theo danh mục
       </h2>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Income Categories */}
-        <CategorySection
-          title="Thu nhập"
-          items={incomeCategories}
-          total={totalIncome}
-          colorClass="text-green-600"
-        />
+      {categories.length === 0 ? (
+        <EmptyCategoryBreakdown />
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Income Categories */}
+          <CategorySection
+            title="Thu nhập"
+            items={incomeCategories}
+            total={totalIncome}
+            colorClass="text-green-600"
+          />
 
-        {/* Expense Categories */}
-        <CategorySection
-          title="Chi tiêu"
-          items={expenseCategories}
-          total={totalExpenses}
-          colorClass="text-red-600"
-        />
-      </div>
+          {/* Expense Categories */}
+          <CategorySection
+            title="Chi tiêu"
+            items={expenseCategories}
+            total={totalExpenses}
+            colorClass="text-red-600"
+          />
+        </div>
+      )}
     </div>
   );
 }

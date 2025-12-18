@@ -776,21 +776,21 @@
 
 **Purpose**: Final touches, code quality improvements, and comprehensive documentation.
 
-- [ ] T069 [P] Add loading states and skeletons
+- [X] T069 [P] Add loading states and skeletons
   - Add: Skeleton loaders for transaction list while fetching
   - Add: Loading spinner for dashboard summary
   - Add: Disabled state for forms during submission
   - Add: Progress bar for CSV export
   - Style: Consistent loading UX across app
 
-- [ ] T070 [P] Add empty state illustrations
+- [X] T070 [P] Add empty state illustrations
   - Create: EmptyState component with icon and message
   - Add: Empty transaction list message ("No transactions yet. Add your first!")
   - Add: Empty category breakdown ("No transactions in this period")
   - Add: Empty search results ("No transactions found matching your filters")
   - Style: Friendly, encouraging empty states
 
-- [ ] T071 [P] Implement toast notifications
+- [X] T071 [P] Implement toast notifications
   - Install: Toast library (e.g., react-hot-toast or sonner)
   - Add: Success toasts for create/update/delete operations
   - Add: Error toasts for failed operations

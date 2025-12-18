@@ -9,12 +9,11 @@ export const transactionSchema = z.object({
       message: 'Số tiền chỉ được có tối đa 2 chữ số thập phân',
     }),
   type: z.enum(['income', 'expense'], {
-    required_error: 'Loại giao dịch là bắt buộc',
+    message: 'Loại giao dịch là bắt buộc',
   }),
   categoryId: z.string().min(1, 'Danh mục là bắt buộc'),
   date: z.coerce.date({
-    required_error: 'Ngày giao dịch là bắt buộc',
-    invalid_type_error: 'Ngày giao dịch không hợp lệ',
+    message: 'Ngày giao dịch không hợp lệ',
   }),
   description: z
     .string()
@@ -33,7 +32,7 @@ export const categorySchema = z.object({
     .max(50, 'Tên danh mục không được vượt quá 50 ký tự')
     .trim(),
   type: z.enum(['income', 'expense'], {
-    required_error: 'Loại danh mục là bắt buộc',
+    message: 'Loại danh mục là bắt buộc',
   }),
 });
 

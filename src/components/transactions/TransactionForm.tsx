@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { Input } from '@/components/ui/Input';
 import { Select } from '@/components/ui/Select';
 import { DatePicker } from '@/components/ui/DatePicker';
 import { Button } from '@/components/ui/Button';
+import { LoadingSpinner } from '@/components/ui/Loading';
 import { formatDateISO } from '@/lib/formatters';
 import { Category } from '@/types/category';
 
@@ -88,9 +90,15 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
       const data = await res.json();
 
       if (data.success) {
+        toast.success(
+          mode === 'create' 
+            ? '✅ Tạo giao dịch thành công!' 
+            : '✅ Cập nhật giao dịch thành công!'
+        );
         router.push('/transactions');
         router.refresh();
       } else {
+        toast.error(data.error || '❌ Đã xảy ra lỗi');
         setError(data.error || 'Đã xảy ra lỗi');
         if (data.details) {
           const fieldErrors: Record<string, string> = {};
@@ -101,6 +109,7 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
         }
       }
     } catch (error) {
+      toast.error('❌ Không thể kết nối đến máy chủ');
       setError('Không thể kết nối đến máy chủ');
     } finally {
       setIsLoading(false);
@@ -209,11 +218,19 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
           variant="secondary"
           onClick={() => router.back()}
           fullWidth
+          disabled={isLoading}
         >
           Hủy
         </Button>
         <Button type="submit" disabled={isLoading} fullWidth>
-          {isLoading ? 'Đang lưu...' : mode === 'create' ? 'Tạo giao dịch' : 'Cập nhật'}
+          {isLoading ? (
+            <span className="flex items-center justify-center gap-2">
+              <LoadingSpinner size="sm" />
+              Đang lưu...
+            </span>
+          ) : (
+            mode === 'create' ? 'Tạo giao dịch' : 'Cập nhật'
+          )}
         </Button>
       </div>
     </form>

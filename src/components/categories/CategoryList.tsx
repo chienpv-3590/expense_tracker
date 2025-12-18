@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import toast from 'react-hot-toast';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 
@@ -38,12 +39,15 @@ export function CategoryList({ categories }: CategoryListProps) {
       const data = await res.json();
 
       if (data.success) {
+        toast.success('✅ Xóa danh mục thành công!');
         setDeletingId(null);
         router.refresh();
       } else {
+        toast.error(data.error || '❌ Không thể xóa danh mục');
         setDeleteError(data.error || 'Không thể xóa danh mục');
       }
     } catch (error) {
+      toast.error('❌ Đã xảy ra lỗi khi xóa danh mục');
       setDeleteError('Đã xảy ra lỗi khi xóa danh mục');
     } finally {
       setIsDeleting(false);

@@ -1,6 +1,8 @@
 'use client';
 
 import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { LoadingSpinner } from '@/components/ui/Loading';
 
 interface ExportButtonProps {
   filters?: Record<string, string>;
@@ -54,9 +56,13 @@ export default function ExportButton({ filters = {}, className = '' }: ExportBut
       // Cleanup
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      
+      toast.success('✅ Xuất CSV thành công!');
     } catch (err) {
       console.error('Export error:', err);
-      setError(err instanceof Error ? err.message : 'Failed to export');
+      const errorMsg = err instanceof Error ? err.message : 'Failed to export';
+      toast.error(`❌ ${errorMsg}`);
+      setError(errorMsg);
     } finally {
       setIsExporting(false);
     }
@@ -71,7 +77,7 @@ export default function ExportButton({ filters = {}, className = '' }: ExportBut
       >
         {isExporting ? (
           <>
-            <span className="animate-spin">⏳</span>
+            <LoadingSpinner size="sm" />
             Đang xuất...
           </>
         ) : (
