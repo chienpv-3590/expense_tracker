@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "dev": "next dev",
-    "build": "prisma generate && next build",
+    "dev": "node scripts/setup-db.js && next dev",
+    "build": "node scripts/setup-db.js && prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "analyze": "ANALYZE=true npm run build",
@@ -18,7 +18,8 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "postinstall": "prisma generate"
+    "postinstall": "node scripts/setup-db.js && prisma generate",
+    "db:setup": "node scripts/setup-db.js"
   },
   "prisma": {
     "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
