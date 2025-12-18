@@ -3,7 +3,21 @@ import { prisma } from '@/lib/prisma';
 import { handleApiError } from '@/lib/errors';
 import { transactionSchema, filterSchema } from '@/lib/validations';
 
-// GET /api/transactions - List transactions with filters and pagination
+/**
+ * GET /api/transactions - List transactions with filters and pagination
+ * 
+ * Query Parameters:
+ * - type: 'income' | 'expense' (optional)
+ * - categoryId: string (optional)
+ * - startDate: ISO date string (optional)
+ * - endDate: ISO date string (optional)
+ * - search: string (optional) - searches description and category name
+ * - page: number (default: 1)
+ * - limit: number (default: 20, max: 100)
+ * 
+ * @returns JSON response with paginated transactions and category data
+ * @example GET /api/transactions?type=expense&page=1&limit=20
+ */
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
@@ -88,7 +102,23 @@ export async function GET(request: NextRequest) {
   }
 }
 
-// POST /api/transactions - Create new transaction
+/**
+ * POST /api/transactions - Create new transaction
+ * 
+ * Request Body:
+ * - amount: number (positive, max 2 decimal places)
+ * - type: 'income' | 'expense'
+ * - categoryId: string (must exist)
+ * - date: ISO date string
+ * - description: string (optional, max 500 chars)
+ * 
+ * Validations:
+ * - Category must exist
+ * - Checks for potential duplicates (same amount/category/date within 1 minute)
+ * 
+ * @returns JSON response with created transaction including category data
+ * @example POST /api/transactions with body { amount: 50000, type: 'expense', categoryId: '...', date: '2025-12-18' }
+ */
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();

@@ -1,3 +1,8 @@
+/**
+ * Skeleton loader for transaction list
+ * Shows 5 animated placeholder cards while data is loading
+ * Used in: /transactions page
+ */
 export function TransactionListSkeleton() {
   return (
     <div className="space-y-4">
@@ -22,6 +27,11 @@ export function TransactionListSkeleton() {
   );
 }
 
+/**
+ * Skeleton loader for dashboard summary cards
+ * Shows 4 animated placeholder cards (income, expenses, balance, count)
+ * Used in: Homepage dashboard
+ */
 export function SummaryCardsSkeleton() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

@@ -1,3 +1,10 @@
+/**
+ * Props for EmptyState component
+ * @property icon - Emoji or icon to display (default: '📭')
+ * @property title - Main heading text
+ * @property description - Optional supporting text
+ * @property action - Optional call-to-action button with label and link
+ */
 interface EmptyStateProps {
   icon?: string;
   title: string;
@@ -8,6 +15,19 @@ interface EmptyStateProps {
   };
 }
 
+/**
+ * Reusable empty state component for displaying "no data" states
+ * Shows icon, title, description, and optional action button
+ * 
+ * @param props - EmptyStateProps
+ * @example
+ * <EmptyState
+ *   icon="📭"
+ *   title="Chưa có dữ liệu"
+ *   description="Thêm mục đầu tiên của bạn"
+ *   action={{ label: "Thêm mới", href: "/new" }}
+ * />
+ */
 export function EmptyState({ icon = '📭', title, description, action }: EmptyStateProps) {
   return (
     <div className="flex flex-col items-center justify-center py-12 px-4 text-center">

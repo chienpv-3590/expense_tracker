@@ -2,6 +2,13 @@ import { NextResponse } from 'next/server';
 import { ZodError } from 'zod';
 import { Prisma } from '@prisma/client';
 
+/**
+ * Custom application error class with HTTP status code
+ * Used for throwing business logic errors with specific status codes
+ * 
+ * @example
+ * throw new AppError('Category not found', 404, 'CATEGORY_NOT_FOUND');
+ */
 export class AppError extends Error {
   constructor(
     public message: string,
@@ -13,6 +20,25 @@ export class AppError extends Error {
   }
 }
 
+/**
+ * Centralized error handler for API routes
+ * Converts different error types to consistent JSON responses
+ * 
+ * Handles:
+ * - ZodError: Validation errors (400)
+ * - AppError: Custom application errors (status from error)
+ * - Prisma errors: Database errors (400/404/409/500)
+ * - Unknown errors: Generic server error (500)
+ * 
+ * @param error - Any error thrown in API route
+ * @returns NextResponse with error JSON and appropriate status code
+ * @example
+ * try {
+ *   // ... API logic
+ * } catch (error) {
+ *   return handleApiError(error);
+ * }
+ */
 export function handleApiError(error: unknown): NextResponse {
   console.error('API Error:', error);
 
