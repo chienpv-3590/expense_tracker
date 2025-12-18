@@ -26,7 +26,12 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
 
     return NextResponse.json({
       success: true,
-      data: transaction,
+      data: {
+        ...transaction,
+        date: transaction.date.toISOString(),
+        createdAt: transaction.createdAt.toISOString(),
+        updatedAt: transaction.updatedAt.toISOString(),
+      },
     });
   } catch (error) {
     return handleApiError(error);
@@ -90,7 +95,12 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     return NextResponse.json({
       success: true,
-      data: transaction,
+      data: {
+        ...transaction,
+        date: transaction.date.toISOString(),
+        createdAt: transaction.createdAt.toISOString(),
+        updatedAt: transaction.updatedAt.toISOString(),
+      },
     });
   } catch (error) {
     return handleApiError(error);

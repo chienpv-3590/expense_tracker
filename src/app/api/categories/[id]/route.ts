@@ -31,6 +31,7 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
       success: true,
       data: {
         ...category,
+        createdAt: category.createdAt.toISOString(),
         transactionCount: category._count.transactions,
       },
     });
@@ -94,7 +95,10 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
 
     return NextResponse.json({
       success: true,
-      data: updatedCategory,
+      data: {
+        ...updatedCategory,
+        createdAt: updatedCategory.createdAt.toISOString(),
+      },
     });
   } catch (error) {
     return handleApiError(error);

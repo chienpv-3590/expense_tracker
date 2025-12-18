@@ -20,7 +20,10 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json({
       success: true,
-      data: categories,
+      data: categories.map(cat => ({
+        ...cat,
+        createdAt: cat.createdAt.toISOString(),
+      })),
     });
   } catch (error) {
     return handleApiError(error);
@@ -46,7 +49,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        data: category,
+        data: {
+          ...category,
+          createdAt: category.createdAt.toISOString(),
+        },
       },
       { status: 201 }
     );

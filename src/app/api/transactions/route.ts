@@ -90,7 +90,12 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: true,
       data: {
-        items: transactions,
+        items: transactions.map(t => ({
+          ...t,
+          date: t.date.toISOString(),
+          createdAt: t.createdAt.toISOString(),
+          updatedAt: t.updatedAt.toISOString(),
+        })),
         total,
         page,
         limit,
@@ -182,7 +187,12 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        data: transaction,
+        data: {
+          ...transaction,
+          date: transaction.date.toISOString(),
+          createdAt: transaction.createdAt.toISOString(),
+          updatedAt: transaction.updatedAt.toISOString(),
+        },
         warning: duplicateCheck ? 'Giao dịch tương tự đã tồn tại' : undefined,
       },
       { status: 201 }
