@@ -13,42 +13,31 @@
 
 ## 🗄️ Production Database Setup
 
-### Option 1: Vercel Postgres (Recommended for Vercel deployment)
+For detailed step-by-step database setup instructions, see **[docs/DATABASE_SETUP.md](./docs/DATABASE_SETUP.md)**.
 
-1. **Create Database**:
-   ```bash
-   # In Vercel dashboard:
-   # Storage → Create Database → Postgres
+### Quick Overview
+
+**Recommended Providers**:
+- **Vercel Postgres**: Best for Vercel deployments (seamless integration)
+- **Supabase**: Best free tier (500MB, backups, UI)
+- **Railway**: Simplest setup (1-click PostgreSQL)
+- **Neon**: Serverless, cost-effective (auto-scales to zero)
+
+### Quick Start (Vercel Postgres)
+
+1. **Create Database** in Vercel dashboard → Storage → Postgres
+2. **Copy Connection String** from database settings
+3. **Add to Environment Variables**:
+   ```env
+   DATABASE_URL=postgresql://default:pass@host.vercel-storage.com:5432/verceldb?sslmode=require
    ```
-
-2. **Get Connection String**:
-   - Copy the `DATABASE_URL` from Vercel dashboard
-   - Includes SSL by default
-
-3. **Run Migrations**:
+4. **Run Migrations**:
    ```bash
-   # Set DATABASE_URL in your terminal
-   export DATABASE_URL="your-production-connection-string"
-   
-   # Run migrations (NEVER use migrate dev in production)
    npx prisma migrate deploy
-   
-   # Seed default categories
    npx prisma db seed
    ```
 
-### Option 2: Supabase (Free tier available)
-
-1. **Create Project**: https://supabase.com
-2. **Get Connection String**: Settings → Database → Connection string (Transaction mode)
-3. **Add SSL**: Append `?sslmode=require` to connection string
-4. **Run Migrations**: Same as above
-
-### Option 3: Railway (Alternative)
-
-1. **Create PostgreSQL**: railway.app
-2. **Copy Connection String** with SSL
-3. **Run Migrations**: Same as above
+See [docs/DATABASE_SETUP.md](./docs/DATABASE_SETUP.md) for complete instructions for all providers.
 
 ---
 

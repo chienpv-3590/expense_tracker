@@ -848,7 +848,7 @@
   - Configure: NODE_ENV=production
   - Security: Review exposed variables (no secrets in client code)
 
-- [ ] T077 [P] Setup production database
+- [X] T077 [P] Setup production database
   - Create: Production PostgreSQL database (cloud provider)
   - Run: Prisma migrations on production database
   - Run: Seed script for default categories
