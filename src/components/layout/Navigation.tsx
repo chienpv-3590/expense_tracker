@@ -14,9 +14,7 @@ export default function Navigation() {
 
   const navLinkClass = (path: string) =>
     `px-4 py-2 rounded-lg font-medium transition-colors ${
-      isActive(path)
-        ? 'bg-black text-white'
-        : 'text-gray-700 hover:bg-gray-100 hover:text-black'
+      isActive(path) ? 'bg-black text-white' : 'text-gray-700 hover:bg-gray-100 hover:text-black'
     }`;
 
   return (
@@ -48,16 +46,8 @@ export default function Navigation() {
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100"
-            aria-label="Menu"
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+          <button className="md:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Menu">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -81,9 +71,7 @@ export default function Navigation() {
           <Link
             href="/transactions"
             className={`block px-4 py-2 rounded-lg ${
-              isActive('/transactions')
-                ? 'bg-black text-white'
-                : 'text-gray-700 hover:bg-gray-100'
+              isActive('/transactions') ? 'bg-black text-white' : 'text-gray-700 hover:bg-gray-100'
             }`}
           >
             📋 Giao Dịch
@@ -91,9 +79,7 @@ export default function Navigation() {
           <Link
             href="/categories"
             className={`block px-4 py-2 rounded-lg ${
-              isActive('/categories')
-                ? 'bg-black text-white'
-                : 'text-gray-700 hover:bg-gray-100'
+              isActive('/categories') ? 'bg-black text-white' : 'text-gray-700 hover:bg-gray-100'
             }`}
           >
             📁 Danh Mục

@@ -19,8 +19,7 @@ export default function TimeFilter({
   onNext,
   onGranularityChange,
 }: TimeFilterProps) {
-  const isToday = granularity === 'day' && 
-    startDate.toDateString() === new Date().toDateString();
+  const isToday = granularity === 'day' && startDate.toDateString() === new Date().toDateString();
   const isFuture = startDate > new Date();
 
   return (

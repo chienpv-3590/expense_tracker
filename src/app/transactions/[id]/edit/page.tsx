@@ -15,11 +15,7 @@ async function getTransaction(id: string) {
   return res.json();
 }
 
-export default async function EditTransactionPage({
-  params,
-}: {
-  params: Promise<{ id: string }>;
-}) {
+export default async function EditTransactionPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const response = await getTransaction(id);
 

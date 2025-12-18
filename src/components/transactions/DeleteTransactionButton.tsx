@@ -20,9 +20,9 @@ interface DeleteTransactionButtonProps {
   fullWidth?: boolean;
 }
 
-export function DeleteTransactionButton({ 
-  transaction, 
-  fullWidth = false 
+export function DeleteTransactionButton({
+  transaction,
+  fullWidth = false,
 }: DeleteTransactionButtonProps) {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -55,11 +55,7 @@ export function DeleteTransactionButton({
 
   return (
     <>
-      <Button
-        variant="danger"
-        onClick={() => setIsModalOpen(true)}
-        fullWidth={fullWidth}
-      >
+      <Button variant="danger" onClick={() => setIsModalOpen(true)} fullWidth={fullWidth}>
         🗑️ Xóa
       </Button>
 
@@ -69,18 +65,10 @@ export function DeleteTransactionButton({
         title="⚠️ Xác nhận xóa giao dịch"
         footer={
           <>
-            <Button 
-              variant="secondary" 
-              onClick={() => setIsModalOpen(false)}
-              disabled={isDeleting}
-            >
+            <Button variant="secondary" onClick={() => setIsModalOpen(false)} disabled={isDeleting}>
               Hủy
             </Button>
-            <Button 
-              variant="danger" 
-              onClick={handleDelete} 
-              disabled={isDeleting}
-            >
+            <Button variant="danger" onClick={handleDelete} disabled={isDeleting}>
               {isDeleting ? 'Đang xóa...' : 'Xóa giao dịch'}
             </Button>
           </>

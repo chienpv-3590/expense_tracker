@@ -70,10 +70,7 @@ export function getEndOfDay(date: Date): Date {
 /**
  * Get date range based on granularity
  */
-export function getDateRange(
-  date: Date,
-  granularity: Granularity
-): DateRange {
+export function getDateRange(date: Date, granularity: Granularity): DateRange {
   switch (granularity) {
     case 'day':
       return {
@@ -99,10 +96,7 @@ export function getDateRange(
 /**
  * Navigate to previous period
  */
-export function getPreviousPeriod(
-  date: Date,
-  granularity: Granularity
-): Date {
+export function getPreviousPeriod(date: Date, granularity: Granularity): Date {
   const d = new Date(date);
   switch (granularity) {
     case 'day':
@@ -140,11 +134,7 @@ export function getNextPeriod(date: Date, granularity: Granularity): Date {
 /**
  * Format date range for display
  */
-export function formatDateRange(
-  startDate: Date,
-  endDate: Date,
-  granularity: Granularity
-): string {
+export function formatDateRange(startDate: Date, endDate: Date, granularity: Granularity): string {
   const options: Intl.DateTimeFormatOptions = {
     year: 'numeric',
     month: 'long',

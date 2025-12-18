@@ -4,16 +4,8 @@ import { useState, useEffect, useMemo } from 'react';
 import SummaryCards from '@/components/dashboard/SummaryCards';
 import TimeFilter from '@/components/dashboard/TimeFilter';
 import CategoryBreakdown from '@/components/dashboard/CategoryBreakdown';
-import {
-  SummaryCardsSkeleton,
-  CategoryBreakdownSkeleton,
-} from '@/components/ui/Loading';
-import {
-  Granularity,
-  getDateRange,
-  getPreviousPeriod,
-  getNextPeriod,
-} from '@/lib/date-utils';
+import { SummaryCardsSkeleton, CategoryBreakdownSkeleton } from '@/components/ui/Loading';
+import { Granularity, getDateRange, getPreviousPeriod, getNextPeriod } from '@/lib/date-utils';
 
 interface SummaryData {
   summary: {

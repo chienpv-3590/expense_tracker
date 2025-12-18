@@ -45,7 +45,6 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
       try {
         const res = await fetch('/api/categories');
         const data = await res.json();
-        console.log('Categories fetched:', data);
         if (data.success) {
           setCategories(data.data);
         }
@@ -58,7 +57,6 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
 
   // Filter categories by type
   const filteredCategories = categories.filter((cat) => cat.type === formData.type);
-  console.log('Filtered categories:', filteredCategories, 'for type:', formData.type);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,10 +65,8 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
     setErrors({});
 
     try {
-      const url = mode === 'create' 
-        ? '/api/transactions' 
-        : `/api/transactions/${initialData?.id}`;
-      
+      const url = mode === 'create' ? '/api/transactions' : `/api/transactions/${initialData?.id}`;
+
       const method = mode === 'create' ? 'POST' : 'PUT';
 
       const res = await fetch(url, {
@@ -91,9 +87,7 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
 
       if (data.success) {
         toast.success(
-          mode === 'create' 
-            ? '✅ Tạo giao dịch thành công!' 
-            : '✅ Cập nhật giao dịch thành công!'
+          mode === 'create' ? '✅ Tạo giao dịch thành công!' : '✅ Cập nhật giao dịch thành công!'
         );
         router.push('/transactions');
         router.refresh();
@@ -168,7 +162,9 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
         required
       />
       {filteredCategories.length === 0 && (
-        <p className="text-sm text-gray-600 -mt-4">Không có danh mục {formData.type === 'income' ? 'thu nhập' : 'chi tiêu'}</p>
+        <p className="text-sm text-gray-600 -mt-4">
+          Không có danh mục {formData.type === 'income' ? 'thu nhập' : 'chi tiêu'}
+        </p>
       )}
 
       <Input
@@ -207,9 +203,7 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
           className="w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-400 focus:border-gray-400 text-gray-900 placeholder-gray-500"
           placeholder="Thêm mô tả cho giao dịch..."
         />
-        {errors.description && (
-          <p className="mt-1 text-sm text-gray-700">{errors.description}</p>
-        )}
+        {errors.description && <p className="mt-1 text-sm text-gray-700">{errors.description}</p>}
       </div>
 
       <div className="flex gap-4 pt-4">
@@ -228,8 +222,10 @@ export function TransactionForm({ mode, initialData }: TransactionFormProps) {
               <LoadingSpinner size="sm" />
               Đang lưu...
             </span>
+          ) : mode === 'create' ? (
+            'Tạo giao dịch'
           ) : (
-            mode === 'create' ? 'Tạo giao dịch' : 'Cập nhật'
+            'Cập nhật'
           )}
         </Button>
       </div>

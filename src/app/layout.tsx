@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
-import Navigation from "@/components/layout/Navigation";
-import { Toaster } from "react-hot-toast";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Navigation from '@/components/layout/Navigation';
+import { Toaster } from 'react-hot-toast';
 
-const inter = Inter({ subsets: ["latin", "vietnamese"] });
+const inter = Inter({ subsets: ['latin', 'vietnamese'] });
 
 export const metadata: Metadata = {
-  title: "Expense Tracker - Theo dõi Thu Chi",
-  description: "Ứng dụng theo dõi thu chi cá nhân với giao diện tiếng Việt",
+  title: 'Expense Tracker - Theo dõi Thu Chi',
+  description: 'Ứng dụng theo dõi thu chi cá nhân với giao diện tiếng Việt',
 };
 
 export default function RootLayout({

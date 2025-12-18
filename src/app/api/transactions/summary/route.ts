@@ -9,10 +9,7 @@ export async function GET(request: NextRequest) {
 
     // Validate required parameters
     if (!startDate || !endDate) {
-      return NextResponse.json(
-        { error: 'startDate and endDate are required' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'startDate and endDate are required' }, { status: 400 });
     }
 
     // Parse dates
@@ -24,17 +21,11 @@ export async function GET(request: NextRequest) {
 
     // Validate date range
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-      return NextResponse.json(
-        { error: 'Invalid date format' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'Invalid date format' }, { status: 400 });
     }
 
     if (start > end) {
-      return NextResponse.json(
-        { error: 'startDate cannot be after endDate' },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: 'startDate cannot be after endDate' }, { status: 400 });
     }
 
     // Fetch all transactions in date range
@@ -56,13 +47,16 @@ export async function GET(request: NextRequest) {
     let transactionCount = 0;
 
     // Group by category
-    const categoryMap = new Map<string, {
-      categoryId: string;
-      categoryName: string;
-      type: 'income' | 'expense';
-      amount: number;
-      count: number;
-    }>();
+    const categoryMap = new Map<
+      string,
+      {
+        categoryId: string;
+        categoryName: string;
+        type: 'income' | 'expense';
+        amount: number;
+        count: number;
+      }
+    >();
 
     transactions.forEach((transaction) => {
       transactionCount++;
@@ -98,7 +92,7 @@ export async function GET(request: NextRequest) {
     const byCategory = Array.from(categoryMap.values()).map((cat) => {
       const total = cat.type === 'income' ? totalIncome : totalExpenses;
       const percentage = total > 0 ? (cat.amount / total) * 100 : 0;
-      
+
       return {
         categoryId: cat.categoryId,
         categoryName: cat.categoryName,
@@ -127,9 +121,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error fetching transaction summary:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch transaction summary' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to fetch transaction summary' }, { status: 500 });
   }
 }

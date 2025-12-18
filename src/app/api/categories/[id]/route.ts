@@ -4,10 +4,7 @@ import { handleApiError } from '@/lib/errors';
 import { categorySchema } from '@/lib/validations';
 
 // GET /api/categories/[id] - Get single category with transaction count
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const category = await prisma.category.findUnique({
@@ -43,10 +40,7 @@ export async function GET(
 }
 
 // PUT /api/categories/[id] - Update category
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const body = await request.json();

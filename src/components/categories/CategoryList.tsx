@@ -25,7 +25,7 @@ export function CategoryList({ categories }: CategoryListProps) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   // First 9 categories are default (seeded)
-  const defaultCategoryIds = categories.slice(0, 9).map(c => c.id);
+  const defaultCategoryIds = categories.slice(0, 9).map((c) => c.id);
 
   const handleDelete = async (id: string) => {
     setIsDeleting(true);
@@ -58,12 +58,7 @@ export function CategoryList({ categories }: CategoryListProps) {
     return (
       <div className="text-center py-12">
         <div className="text-gray-400 mb-4">
-          <svg
-            className="mx-auto h-12 w-12"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+          <svg className="mx-auto h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -102,17 +97,16 @@ export function CategoryList({ categories }: CategoryListProps) {
           <tbody className="bg-white divide-y divide-gray-200">
             {categories.map((category) => {
               const isDefault = defaultCategoryIds.includes(category.id);
-              const typeBadge = category.type === 'income'
-                ? 'bg-green-100 text-green-800 border-green-300'
-                : 'bg-red-100 text-red-800 border-red-300';
-              
+              const typeBadge =
+                category.type === 'income'
+                  ? 'bg-green-100 text-green-800 border-green-300'
+                  : 'bg-red-100 text-red-800 border-red-300';
+
               return (
                 <tr key={category.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-4 py-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-medium text-gray-900">
-                        {category.name}
-                      </span>
+                      <span className="text-sm font-medium text-gray-900">{category.name}</span>
                       {isDefault && (
                         <span className="px-2 py-0.5 text-xs font-semibold bg-gray-900 text-white rounded">
                           Mặc định
@@ -121,7 +115,9 @@ export function CategoryList({ categories }: CategoryListProps) {
                     </div>
                   </td>
                   <td className="px-4 py-4 whitespace-nowrap">
-                    <span className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md border ${typeBadge}`}>
+                    <span
+                      className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md border ${typeBadge}`}
+                    >
                       {category.type === 'income' ? '💰 Thu nhập' : '💸 Chi tiêu'}
                     </span>
                   </td>
@@ -131,10 +127,7 @@ export function CategoryList({ categories }: CategoryListProps) {
                   <td className="px-4 py-4 whitespace-nowrap text-right">
                     <div className="flex justify-end gap-1.5">
                       <Link href={`/categories/${category.id}/edit`}>
-                        <Button
-                          variant="secondary"
-                          className="text-xs px-2.5 py-1.5"
-                        >
+                        <Button variant="secondary" className="text-xs px-2.5 py-1.5">
                           ✏️
                         </Button>
                       </Link>
@@ -160,35 +153,33 @@ export function CategoryList({ categories }: CategoryListProps) {
       <div className="md:hidden p-4 space-y-3">
         {categories.map((category) => {
           const isDefault = defaultCategoryIds.includes(category.id);
-          const typeBadge = category.type === 'income'
-            ? 'bg-green-100 text-green-800 border-green-300'
-            : 'bg-red-100 text-red-800 border-red-300';
-          
+          const typeBadge =
+            category.type === 'income'
+              ? 'bg-green-100 text-green-800 border-green-300'
+              : 'bg-red-100 text-red-800 border-red-300';
+
           return (
             <div key={category.id} className="bg-gray-50 rounded-xl p-4 border border-gray-200">
               <div className="flex justify-between items-start mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <h3 className="text-sm font-bold text-gray-900">
-                      {category.name}
-                    </h3>
+                    <h3 className="text-sm font-bold text-gray-900">{category.name}</h3>
                     {isDefault && (
                       <span className="px-2 py-0.5 text-xs font-semibold bg-gray-900 text-white rounded">
                         Mặc định
                       </span>
                     )}
                   </div>
-                  <span className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md border ${typeBadge}`}>
+                  <span
+                    className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md border ${typeBadge}`}
+                  >
                     {category.type === 'income' ? '💰 Thu nhập' : '💸 Chi tiêu'}
                   </span>
                 </div>
               </div>
               <div className="mt-3 pt-3 border-t border-gray-200 flex gap-2">
                 <Link href={`/categories/${category.id}/edit`} className="flex-1">
-                  <Button
-                    variant="secondary"
-                    className="text-sm w-full"
-                  >
+                  <Button variant="secondary" className="text-sm w-full">
                     ✏️ Sửa
                   </Button>
                 </Link>
@@ -214,11 +205,7 @@ export function CategoryList({ categories }: CategoryListProps) {
           title="⚠️ Xác nhận xóa danh mục"
           footer={
             <>
-              <Button
-                variant="secondary"
-                onClick={() => setDeletingId(null)}
-                disabled={isDeleting}
-              >
+              <Button variant="secondary" onClick={() => setDeletingId(null)} disabled={isDeleting}>
                 Hủy
               </Button>
               <Button
@@ -232,9 +219,7 @@ export function CategoryList({ categories }: CategoryListProps) {
           }
         >
           <div className="space-y-4">
-            <p className="text-gray-900">
-              Bạn có chắc chắn muốn xóa danh mục này?
-            </p>
+            <p className="text-gray-900">Bạn có chắc chắn muốn xóa danh mục này?</p>
             <p className="text-sm text-gray-600">
               ⚠️ Lưu ý: Bạn chỉ có thể xóa danh mục nếu không có giao dịch nào sử dụng danh mục này.
             </p>

@@ -58,20 +58,14 @@ export default function CategoryBreakdown({
             <div key={category.categoryId} className="space-y-1">
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <span className="text-sm font-medium text-gray-900">
-                    {category.categoryName}
-                  </span>
-                  <span className="text-xs text-gray-500 ml-2">
-                    ({category.count} giao dịch)
-                  </span>
+                  <span className="text-sm font-medium text-gray-900">{category.categoryName}</span>
+                  <span className="text-xs text-gray-500 ml-2">({category.count} giao dịch)</span>
                 </div>
                 <div className="text-right">
                   <p className={`text-sm font-semibold ${colorClass}`}>
                     {formatCurrency(category.amount)}
                   </p>
-                  <p className="text-xs text-gray-500">
-                    {category.percentage.toFixed(1)}%
-                  </p>
+                  <p className="text-xs text-gray-500">{category.percentage.toFixed(1)}%</p>
                 </div>
               </div>
               {/* Progress bar */}
@@ -88,12 +82,8 @@ export default function CategoryBreakdown({
         </div>
         <div className="mt-4 pt-4 border-t border-gray-200">
           <div className="flex items-center justify-between">
-            <span className="text-sm font-semibold text-gray-900">
-              Tổng cộng
-            </span>
-            <span className={`text-sm font-bold ${colorClass}`}>
-              {formatCurrency(total)}
-            </span>
+            <span className="text-sm font-semibold text-gray-900">Tổng cộng</span>
+            <span className={`text-sm font-bold ${colorClass}`}>{formatCurrency(total)}</span>
           </div>
         </div>
       </div>
@@ -102,9 +92,7 @@ export default function CategoryBreakdown({
 
   return (
     <div className="bg-white border border-gray-200 rounded-lg p-6">
-      <h2 className="text-xl font-bold text-gray-900 mb-6">
-        Phân tích theo danh mục
-      </h2>
+      <h2 className="text-xl font-bold text-gray-900 mb-6">Phân tích theo danh mục</h2>
 
       {categories.length === 0 ? (
         <EmptyCategoryBreakdown />

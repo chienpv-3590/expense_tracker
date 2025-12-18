@@ -43,11 +43,12 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
   const debouncedSearch = useDebounce(search, 300);
 
   // Check if any filters are active
-  const hasActiveFilters = categoryId || startDate || endDate || minAmount || maxAmount || search || transactionType;
+  const hasActiveFilters =
+    categoryId || startDate || endDate || minAmount || maxAmount || search || transactionType;
 
   const applyFilters = useCallback(() => {
     const params = new URLSearchParams();
-    
+
     if (categoryId) params.set('categoryId', categoryId);
     if (startDate) params.set('startDate', startDate);
     if (endDate) params.set('endDate', endDate);
@@ -57,11 +58,21 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
     if (transactionType) params.set('type', transactionType);
 
     router.push(`?${params.toString()}`);
-    
+
     if (onFilterChange) {
       onFilterChange();
     }
-  }, [categoryId, startDate, endDate, minAmount, maxAmount, debouncedSearch, transactionType, router, onFilterChange]);
+  }, [
+    categoryId,
+    startDate,
+    endDate,
+    minAmount,
+    maxAmount,
+    debouncedSearch,
+    transactionType,
+    router,
+    onFilterChange,
+  ]);
 
   // Auto-apply filters when debounced search changes
   useEffect(() => {
@@ -79,7 +90,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
     setSearch('');
     setTransactionType('');
     router.push(window.location.pathname);
-    
+
     if (onFilterChange) {
       onFilterChange();
     }
@@ -112,9 +123,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Transaction Type Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Loại giao dịch
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Loại giao dịch</label>
             <select
               value={transactionType}
               onChange={(e) => setTransactionType(e.target.value)}
@@ -128,9 +137,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
 
           {/* Category Filter */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Danh mục
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Danh mục</label>
             <select
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
@@ -147,9 +154,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
 
           {/* Search Field */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tìm kiếm mô tả
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Tìm kiếm mô tả</label>
             <input
               type="text"
               value={search}
@@ -161,9 +166,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
 
           {/* Start Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Từ ngày
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Từ ngày</label>
             <input
               type="date"
               value={startDate}
@@ -174,9 +177,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
 
           {/* End Date */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Đến ngày
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Đến ngày</label>
             <input
               type="date"
               value={endDate}
@@ -202,9 +203,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
 
           {/* Max Amount */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Số tiền tối đa
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Số tiền tối đa</label>
             <input
               type="number"
               value={maxAmount}
@@ -224,7 +223,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
           >
             ✓ Áp dụng bộ lọc
           </button>
-          
+
           {hasActiveFilters && (
             <button
               onClick={clearFilters}
@@ -259,7 +258,7 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
 
               {categoryId && (
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-purple-100 text-purple-800 rounded-lg text-sm">
-                  <span>Danh mục: {categories.find(c => c.id === categoryId)?.name}</span>
+                  <span>Danh mục: {categories.find((c) => c.id === categoryId)?.name}</span>
                   <button
                     onClick={() => {
                       setCategoryId('');
@@ -293,8 +292,8 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
                     {startDate && endDate
                       ? `${startDate} → ${endDate}`
                       : startDate
-                      ? `Từ ${startDate}`
-                      : `Đến ${endDate}`}
+                        ? `Từ ${startDate}`
+                        : `Đến ${endDate}`}
                   </span>
                   <button
                     onClick={() => {
@@ -315,8 +314,8 @@ export default function FilterBar({ categories, onFilterChange }: FilterBarProps
                     {minAmount && maxAmount
                       ? `${Number(minAmount).toLocaleString('vi-VN')}₫ - ${Number(maxAmount).toLocaleString('vi-VN')}₫`
                       : minAmount
-                      ? `≥ ${Number(minAmount).toLocaleString('vi-VN')}₫`
-                      : `≤ ${Number(maxAmount).toLocaleString('vi-VN')}₫`}
+                        ? `≥ ${Number(minAmount).toLocaleString('vi-VN')}₫`
+                        : `≤ ${Number(maxAmount).toLocaleString('vi-VN')}₫`}
                   </span>
                   <button
                     onClick={() => {

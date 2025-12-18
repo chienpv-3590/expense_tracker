@@ -6,7 +6,7 @@ const defaultCategories = [
   // Income categories
   { name: 'Lương', type: 'income' },
   { name: 'Thu nhập khác', type: 'income' },
-  
+
   // Expense categories
   { name: 'Ăn uống', type: 'expense' },
   { name: 'Di chuyển', type: 'expense' },
@@ -19,7 +19,7 @@ const defaultCategories = [
 
 async function main() {
   console.log('Start seeding...');
-  
+
   for (const category of defaultCategories) {
     const result = await prisma.category.upsert({
       where: { name: category.name },
@@ -28,7 +28,7 @@ async function main() {
     });
     console.log(`Created/Updated category: ${result.name}`);
   }
-  
+
   console.log('Seeding finished.');
 }
 

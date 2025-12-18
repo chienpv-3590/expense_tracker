@@ -18,8 +18,12 @@ async function getCategories() {
 export default async function CategoriesPage() {
   const response = await getCategories();
 
-  const incomeCount = response.success ? response.data.filter((c: any) => c.type === 'income').length : 0;
-  const expenseCount = response.success ? response.data.filter((c: any) => c.type === 'expense').length : 0;
+  const incomeCount = response.success
+    ? response.data.filter((c: any) => c.type === 'income').length
+    : 0;
+  const expenseCount = response.success
+    ? response.data.filter((c: any) => c.type === 'expense').length
+    : 0;
 
   return (
     <div className="min-h-screen bg-gray-50">

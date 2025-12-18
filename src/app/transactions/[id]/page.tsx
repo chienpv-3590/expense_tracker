@@ -66,18 +66,12 @@ export default async function TransactionDetailPage({
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-600 block mb-1">
-                  Danh mục
-                </label>
-                <p className="text-lg font-semibold text-gray-900">
-                  {transaction.category.name}
-                </p>
+                <label className="text-sm font-medium text-gray-600 block mb-1">Danh mục</label>
+                <p className="text-lg font-semibold text-gray-900">{transaction.category.name}</p>
               </div>
 
               <div>
-                <label className="text-sm font-medium text-gray-600 block mb-1">
-                  Số tiền
-                </label>
+                <label className="text-sm font-medium text-gray-600 block mb-1">Số tiền</label>
                 <p className="text-2xl font-bold text-black">
                   {transaction.type === 'income' ? '+' : '-'}
                   {formatCurrency(transaction.amount)}
@@ -88,16 +82,12 @@ export default async function TransactionDetailPage({
                 <label className="text-sm font-medium text-gray-600 block mb-1">
                   Ngày giao dịch
                 </label>
-                <p className="text-lg text-gray-900">
-                  {formatDate(transaction.date)}
-                </p>
+                <p className="text-lg text-gray-900">{formatDate(transaction.date)}</p>
               </div>
 
               {transaction.description && (
                 <div className="md:col-span-2">
-                  <label className="text-sm font-medium text-gray-600 block mb-1">
-                    Mô tả
-                  </label>
+                  <label className="text-sm font-medium text-gray-600 block mb-1">Mô tả</label>
                   <p className="text-gray-900">{transaction.description}</p>
                 </div>
               )}

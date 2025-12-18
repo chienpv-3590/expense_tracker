@@ -18,12 +18,7 @@ export function TransactionList({ transactions, pagination }: TransactionListPro
     return (
       <div className="text-center py-16">
         <div className="text-gray-300 mb-6">
-          <svg
-            className="mx-auto h-20 w-20"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
+          <svg className="mx-auto h-20 w-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -84,7 +79,8 @@ export function TransactionList({ transactions, pagination }: TransactionListPro
       <div className="px-6 py-4 bg-gray-50 border-t border-gray-200">
         <div className="flex items-center justify-between text-sm">
           <span className="text-gray-600">
-            Hiển thị <span className="font-semibold text-gray-900">{transactions.length}</span> giao dịch
+            Hiển thị <span className="font-semibold text-gray-900">{transactions.length}</span> giao
+            dịch
           </span>
           <span className="text-gray-500">
             Tổng: <span className="font-semibold text-gray-900">{pagination.total}</span>

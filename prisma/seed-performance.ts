@@ -12,16 +12,18 @@ async function seedPerformanceData() {
 
   // Get all categories
   const categories = await prisma.category.findMany();
-  
+
   if (categories.length === 0) {
     console.error('❌ No categories found. Please run main seed first.');
     process.exit(1);
   }
 
-  const incomeCategories = categories.filter(c => c.type === 'income');
-  const expenseCategories = categories.filter(c => c.type === 'expense');
+  const incomeCategories = categories.filter((c) => c.type === 'income');
+  const expenseCategories = categories.filter((c) => c.type === 'expense');
 
-  console.log(`📊 Found ${categories.length} categories (${incomeCategories.length} income, ${expenseCategories.length} expense)`);
+  console.log(
+    `📊 Found ${categories.length} categories (${incomeCategories.length} income, ${expenseCategories.length} expense)`
+  );
 
   // Configuration
   const TOTAL_TRANSACTIONS = 10000;
@@ -74,22 +76,24 @@ async function seedPerformanceData() {
   ];
 
   console.log(`\n📝 Generating ${TOTAL_TRANSACTIONS} transactions...`);
-  
+
   let totalCreated = 0;
   const startTime = Date.now();
 
   // Delete existing performance test data if any
   const existingCount = await prisma.transaction.count();
   if (existingCount > 1000) {
-    console.log(`⚠️  Found ${existingCount} existing transactions. Cleaning up old performance data...`);
+    console.log(
+      `⚠️  Found ${existingCount} existing transactions. Cleaning up old performance data...`
+    );
     // Keep only last 100 transactions
     const recentTransactions = await prisma.transaction.findMany({
       orderBy: { createdAt: 'desc' },
       take: 100,
       select: { id: true },
     });
-    const recentIds = recentTransactions.map(t => t.id);
-    
+    const recentIds = recentTransactions.map((t) => t.id);
+
     await prisma.transaction.deleteMany({
       where: {
         id: { notIn: recentIds },
@@ -107,10 +111,10 @@ async function seedPerformanceData() {
       // 70% expense, 30% income ratio
       const isExpense = Math.random() < 0.7;
       const type = isExpense ? 'expense' : 'income';
-      
+
       const categoryPool = isExpense ? expenseCategories : incomeCategories;
       const category = categoryPool[Math.floor(Math.random() * categoryPool.length)];
-      
+
       const descriptionPool = isExpense ? expenseDescriptions : incomeDescriptions;
       const description = descriptionPool[Math.floor(Math.random() * descriptionPool.length)];
 
@@ -137,7 +141,9 @@ async function seedPerformanceData() {
   const duration = ((endTime - startTime) / 1000).toFixed(2);
 
   console.log(`\n\n✅ Successfully created ${totalCreated} transactions in ${duration}s`);
-  console.log(`⚡ Average: ${(totalCreated / parseFloat(duration)).toFixed(0)} transactions/second`);
+  console.log(
+    `⚡ Average: ${(totalCreated / parseFloat(duration)).toFixed(0)} transactions/second`
+  );
 
   // Verify data
   const finalCount = await prisma.transaction.count();
@@ -146,8 +152,8 @@ async function seedPerformanceData() {
 
   console.log('\n📊 Database Statistics:');
   console.log(`   Total transactions: ${finalCount}`);
-  console.log(`   Income: ${incomeCount} (${((incomeCount/finalCount)*100).toFixed(1)}%)`);
-  console.log(`   Expense: ${expenseCount} (${((expenseCount/finalCount)*100).toFixed(1)}%)`);
+  console.log(`   Income: ${incomeCount} (${((incomeCount / finalCount) * 100).toFixed(1)}%)`);
+  console.log(`   Expense: ${expenseCount} (${((expenseCount / finalCount) * 100).toFixed(1)}%)`);
 
   // Calculate total amounts
   const summary = await prisma.transaction.groupBy({
@@ -158,7 +164,7 @@ async function seedPerformanceData() {
   });
 
   console.log('\n💰 Financial Summary:');
-  summary.forEach(item => {
+  summary.forEach((item) => {
     const amount = item._sum.amount || 0;
     const formatted = new Intl.NumberFormat('vi-VN').format(amount);
     console.log(`   ${item.type}: ${formatted} ₫`);

@@ -7,7 +7,7 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
 
 export function Input({ label, error, className = '', ...props }: InputProps) {
   const inputId = props.id || `input-${Math.random().toString(36).substr(2, 9)}`;
-  
+
   return (
     <div className="w-full">
       {label && (
@@ -22,9 +22,7 @@ export function Input({ label, error, className = '', ...props }: InputProps) {
         } ${className}`}
         {...props}
       />
-      {error && (
-        <p className="mt-1.5 text-sm text-gray-700">{error}</p>
-      )}
+      {error && <p className="mt-1.5 text-sm text-gray-700">{error}</p>}
     </div>
   );
 }

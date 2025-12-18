@@ -26,9 +26,7 @@ export default function SummaryCards({
           <h3 className="text-sm font-medium text-gray-600">Tổng thu nhập</h3>
           <span className="text-2xl">💰</span>
         </div>
-        <p className="text-2xl font-bold text-green-600">
-          {formatCurrency(totalIncome)}
-        </p>
+        <p className="text-2xl font-bold text-green-600">{formatCurrency(totalIncome)}</p>
       </div>
 
       {/* Total Expenses Card */}
@@ -37,9 +35,7 @@ export default function SummaryCards({
           <h3 className="text-sm font-medium text-gray-600">Tổng chi tiêu</h3>
           <span className="text-2xl">💸</span>
         </div>
-        <p className="text-2xl font-bold text-red-600">
-          {formatCurrency(totalExpenses)}
-        </p>
+        <p className="text-2xl font-bold text-red-600">{formatCurrency(totalExpenses)}</p>
       </div>
 
       {/* Net Balance Card */}
@@ -48,11 +44,7 @@ export default function SummaryCards({
           <h3 className="text-sm font-medium text-gray-600">Số dư</h3>
           <span className="text-2xl">📊</span>
         </div>
-        <p
-          className={`text-2xl font-bold ${
-            netBalance >= 0 ? 'text-blue-600' : 'text-red-600'
-          }`}
-        >
+        <p className={`text-2xl font-bold ${netBalance >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
           {formatCurrency(netBalance)}
         </p>
       </div>

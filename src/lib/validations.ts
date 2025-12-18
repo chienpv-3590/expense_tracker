@@ -15,11 +15,7 @@ export const transactionSchema = z.object({
   date: z.coerce.date({
     message: 'Ngày giao dịch không hợp lệ',
   }),
-  description: z
-    .string()
-    .max(500, 'Mô tả không được vượt quá 500 ký tự')
-    .optional()
-    .nullable(),
+  description: z.string().max(500, 'Mô tả không được vượt quá 500 ký tự').optional().nullable(),
 });
 
 export type TransactionInput = z.infer<typeof transactionSchema>;

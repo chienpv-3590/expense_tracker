@@ -42,9 +42,10 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
 
   const typeColor = transaction.type === 'income' ? 'text-green-600' : 'text-red-600';
   const amountBgColor = transaction.type === 'income' ? 'bg-green-50' : 'bg-red-50';
-  const typeBadge = transaction.type === 'income' 
-    ? 'bg-green-100 text-green-800 border border-green-300' 
-    : 'bg-red-100 text-red-800 border border-red-300';
+  const typeBadge =
+    transaction.type === 'income'
+      ? 'bg-green-100 text-green-800 border border-green-300'
+      : 'bg-red-100 text-red-800 border border-red-300';
 
   return (
     <>
@@ -54,7 +55,9 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
           {formatDate(transaction.date)}
         </td>
         <td className="px-4 py-4 whitespace-nowrap">
-          <span className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md ${typeBadge}`}>
+          <span
+            className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md ${typeBadge}`}
+          >
             {transaction.type === 'income' ? '💰 Thu' : '💸 Chi'}
           </span>
         </td>
@@ -64,13 +67,16 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
         <td className="px-4 py-4 whitespace-nowrap">
           <div className={`inline-flex items-center px-3 py-1.5 rounded-lg ${amountBgColor}`}>
             <span className={`text-sm font-bold ${typeColor}`}>
-              {transaction.type === 'income' ? '+' : '-'}{formatCurrency(transaction.amount)}
+              {transaction.type === 'income' ? '+' : '-'}
+              {formatCurrency(transaction.amount)}
             </span>
           </div>
         </td>
         <td className="px-4 py-4 text-sm text-gray-600">
           <div className="truncate" title={transaction.description || undefined}>
-            {transaction.description || <span className="text-gray-400 italic">Không có mô tả</span>}
+            {transaction.description || (
+              <span className="text-gray-400 italic">Không có mô tả</span>
+            )}
           </div>
         </td>
         <td className="px-4 py-4 whitespace-nowrap text-right">
@@ -101,23 +107,26 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
         <div className="bg-white rounded-xl shadow-sm p-4 border border-gray-200 hover:shadow-md transition-shadow">
           <div className="flex justify-between items-start mb-3">
             <div className="flex flex-col gap-1.5">
-              <span className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md ${typeBadge} w-fit`}>
+              <span
+                className={`inline-flex items-center px-2.5 py-1 text-xs font-semibold rounded-md ${typeBadge} w-fit`}
+              >
                 {transaction.type === 'income' ? '💰 Thu nhập' : '💸 Chi tiêu'}
               </span>
               <span className="text-sm font-medium text-gray-900">{transaction.category.name}</span>
             </div>
             <div className={`px-3 py-1.5 rounded-lg ${amountBgColor}`}>
               <div className={`text-lg font-bold ${typeColor}`}>
-                {transaction.type === 'income' ? '+' : '-'}{formatCurrency(transaction.amount)}
+                {transaction.type === 'income' ? '+' : '-'}
+                {formatCurrency(transaction.amount)}
               </div>
             </div>
           </div>
-          
+
           <div className="flex items-center text-sm text-gray-600 mb-2">
             <span className="mr-1">📅</span>
             {formatDate(transaction.date)}
           </div>
-          
+
           {transaction.description ? (
             <div className="text-sm text-gray-600 mb-3 bg-gray-50 p-2 rounded-md border border-gray-200">
               📝 {transaction.description}
@@ -125,7 +134,7 @@ export function TransactionItem({ transaction }: TransactionItemProps) {
           ) : (
             <div className="text-sm text-gray-400 italic mb-3">Không có mô tả</div>
           )}
-          
+
           <div className="flex gap-2">
             <Link href={`/transactions/${transaction.id}`} className="flex-1">
               <Button variant="secondary" fullWidth className="text-sm">

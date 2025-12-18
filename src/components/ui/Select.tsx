@@ -12,9 +12,16 @@ export interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElemen
   placeholder?: string;
 }
 
-export function Select({ label, error, options, placeholder, className = '', ...props }: SelectProps) {
+export function Select({
+  label,
+  error,
+  options,
+  placeholder,
+  className = '',
+  ...props
+}: SelectProps) {
   const selectId = props.id || `select-${Math.random().toString(36).substr(2, 9)}`;
-  
+
   return (
     <div className="w-full">
       {label && (
@@ -40,9 +47,7 @@ export function Select({ label, error, options, placeholder, className = '', ...
           </option>
         ))}
       </select>
-      {error && (
-        <p className="mt-1.5 text-sm text-gray-700">{error}</p>
-      )}
+      {error && <p className="mt-1.5 text-sm text-gray-700">{error}</p>}
     </div>
   );
 }

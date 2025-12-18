@@ -36,10 +36,8 @@ export function CategoryForm({ mode, initialData }: CategoryFormProps) {
     setErrors({});
 
     try {
-      const url = mode === 'create' 
-        ? '/api/categories' 
-        : `/api/categories/${initialData?.id}`;
-      
+      const url = mode === 'create' ? '/api/categories' : `/api/categories/${initialData?.id}`;
+
       const method = mode === 'create' ? 'POST' : 'PUT';
 
       const res = await fetch(url, {
@@ -54,9 +52,7 @@ export function CategoryForm({ mode, initialData }: CategoryFormProps) {
 
       if (data.success) {
         toast.success(
-          mode === 'create' 
-            ? '✅ Tạo danh mục thành công!' 
-            : '✅ Cập nhật danh mục thành công!'
+          mode === 'create' ? '✅ Tạo danh mục thành công!' : '✅ Cập nhật danh mục thành công!'
         );
         router.push('/categories');
         router.refresh();
@@ -137,8 +133,10 @@ export function CategoryForm({ mode, initialData }: CategoryFormProps) {
               <LoadingSpinner size="sm" />
               Đang lưu...
             </span>
+          ) : mode === 'create' ? (
+            'Tạo danh mục'
           ) : (
-            mode === 'create' ? 'Tạo danh mục' : 'Cập nhật'
+            'Cập nhật'
           )}
         </Button>
       </div>

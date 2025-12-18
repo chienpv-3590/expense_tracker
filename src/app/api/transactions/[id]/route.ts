@@ -4,10 +4,7 @@ import { handleApiError, notFoundError } from '@/lib/errors';
 import { transactionSchema } from '@/lib/validations';
 
 // GET /api/transactions/[id] - Get single transaction
-export async function GET(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function GET(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const transaction = await prisma.transaction.findUnique({
@@ -37,14 +34,11 @@ export async function GET(
 }
 
 // PUT /api/transactions/[id] - Update transaction
-export async function PUT(
-  request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const { id } = await params;
     const body = await request.json();
-    
+
     // Validate request body
     const validatedData = transactionSchema.parse(body);
 

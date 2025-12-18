@@ -123,7 +123,7 @@ export default async function TransactionsPage(props: {
                 Quản lý và theo dõi tất cả giao dịch của bạn
               </p>
             </div>
-            <ExportButton 
+            <ExportButton
               filters={{
                 categoryId: searchParams.categoryId || '',
                 type: searchParams.type || '',
@@ -149,7 +149,9 @@ export default async function TransactionsPage(props: {
               </div>
               <div className="bg-white rounded-lg px-4 py-3 border border-gray-200 shadow-sm">
                 <div className="text-gray-600 text-xs font-medium mb-1">Trang hiện tại</div>
-                <div className="text-2xl font-bold text-gray-900">{response.data.page} / {response.data.totalPages}</div>
+                <div className="text-2xl font-bold text-gray-900">
+                  {response.data.page} / {response.data.totalPages}
+                </div>
               </div>
               <div className="bg-white rounded-lg px-4 py-3 border border-gray-200 shadow-sm">
                 <div className="text-gray-600 text-xs font-medium mb-1">Số lượng / trang</div>
@@ -169,7 +171,7 @@ export default async function TransactionsPage(props: {
           <>
             {response.data.items.length === 0 ? (
               // Check if this is a filtered search or truly empty
-              Object.values(searchParams).some(v => v) ? (
+              Object.values(searchParams).some((v) => v) ? (
                 <EmptySearchResults />
               ) : (
                 <EmptyTransactionList />
@@ -177,10 +179,7 @@ export default async function TransactionsPage(props: {
             ) : (
               <>
                 <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                  <TransactionList
-                    transactions={response.data.items}
-                    pagination={response.data}
-                  />
+                  <TransactionList transactions={response.data.items} pagination={response.data} />
                 </div>
 
                 {/* Pagination */}

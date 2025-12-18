@@ -2,10 +2,7 @@ export function TransactionListSkeleton() {
   return (
     <div className="space-y-4">
       {[...Array(5)].map((_, i) => (
-        <div
-          key={i}
-          className="bg-white rounded-lg p-4 border border-gray-200 animate-pulse"
-        >
+        <div key={i} className="bg-white rounded-lg p-4 border border-gray-200 animate-pulse">
           <div className="flex items-center justify-between">
             <div className="flex-1">
               <div className="h-5 bg-gray-200 rounded w-1/3 mb-2"></div>
@@ -72,7 +69,13 @@ export function CategoryBreakdownSkeleton() {
   );
 }
 
-export function LoadingSpinner({ size = 'md', className = '' }: { size?: 'sm' | 'md' | 'lg'; className?: string }) {
+export function LoadingSpinner({
+  size = 'md',
+  className = '',
+}: {
+  size?: 'sm' | 'md' | 'lg';
+  className?: string;
+}) {
   const sizeClasses = {
     sm: 'h-4 w-4 border-2',
     md: 'h-8 w-8 border-2',

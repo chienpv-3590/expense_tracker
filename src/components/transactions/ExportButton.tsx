@@ -52,11 +52,11 @@ export default function ExportButton({ filters = {}, className = '' }: ExportBut
       link.download = filename;
       document.body.appendChild(link);
       link.click();
-      
+
       // Cleanup
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
-      
+
       toast.success('✅ Xuất CSV thành công!');
     } catch (err) {
       console.error('Export error:', err);
@@ -87,12 +87,8 @@ export default function ExportButton({ filters = {}, className = '' }: ExportBut
           </>
         )}
       </button>
-      
-      {error && (
-        <div className="mt-2 text-sm text-red-600">
-          ⚠️ {error}
-        </div>
-      )}
+
+      {error && <div className="mt-2 text-sm text-red-600">⚠️ {error}</div>}
     </div>
   );
 }

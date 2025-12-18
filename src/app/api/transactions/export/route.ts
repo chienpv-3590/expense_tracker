@@ -67,10 +67,7 @@ export async function GET(request: NextRequest) {
 
     // Check if any transactions found
     if (transactions.length === 0) {
-      return NextResponse.json(
-        { error: 'No transactions found to export' },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: 'No transactions found to export' }, { status: 404 });
     }
 
     // Generate CSV content
@@ -88,9 +85,6 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error('Error exporting transactions:', error);
-    return NextResponse.json(
-      { error: 'Failed to export transactions' },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Failed to export transactions' }, { status: 500 });
   }
 }

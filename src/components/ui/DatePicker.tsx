@@ -7,7 +7,7 @@ export interface DatePickerProps extends Omit<React.InputHTMLAttributes<HTMLInpu
 
 export function DatePicker({ label, error, className = '', ...props }: DatePickerProps) {
   const inputId = props.id || `datepicker-${Math.random().toString(36).substr(2, 9)}`;
-  
+
   return (
     <div className="w-full">
       {label && (
@@ -23,9 +23,7 @@ export function DatePicker({ label, error, className = '', ...props }: DatePicke
         } ${className}`}
         {...props}
       />
-      {error && (
-        <p className="mt-1.5 text-sm text-gray-700">{error}</p>
-      )}
+      {error && <p className="mt-1.5 text-sm text-gray-700">{error}</p>}
     </div>
   );
 }

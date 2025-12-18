@@ -7,7 +7,7 @@ import { transactionSchema, filterSchema } from '@/lib/validations';
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    
+
     // Parse and validate query parameters
     const filterParams = filterSchema.parse({
       type: searchParams.get('type') || undefined,
@@ -92,7 +92,7 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    
+
     // Validate request body
     const validatedData = transactionSchema.parse(body);
 

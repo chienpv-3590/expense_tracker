@@ -74,8 +74,8 @@
 - ✅ Loading states và skeletons (spinner, disabled forms, skeleton loaders)
 - ✅ Empty state illustrations (transaction list, search results, category breakdown)
 - ✅ Toast notifications (react-hot-toast: success/error toasts for all operations)
-- ⏳ Code quality improvements
-- ⏳ Comprehensive README
+- ✅ Code quality improvements (Prettier formatting, removed console.logs, TypeScript checks)
+- ✅ Comprehensive README (updated with all features, scripts, deployment)
 
 **Phase 11: Deployment**
 - ⏳ Production build optimization
@@ -120,27 +120,46 @@ expense_tracker/
 ├── prisma/
 │   ├── schema.prisma           # Database schema
 │   ├── migrations/             # Database migrations
-│   └── seed.ts                 # Seed data (9 danh mục mặc định)
+│   ├── seed.ts                 # Seed default categories (10 categories)
+│   └── seed-performance.ts     # Performance testing seed (10,000+ transactions)
 ├── src/
 │   ├── app/
 │   │   ├── api/
 │   │   │   ├── transactions/   # Transaction API routes
+│   │   │   │   ├── route.ts    # List & create
+│   │   │   │   ├── [id]/       # Get, update, delete
+│   │   │   │   ├── summary/    # Dashboard statistics
+│   │   │   │   └── export/     # CSV export
 │   │   │   └── categories/     # Category API routes
 │   │   ├── transactions/       # Transaction pages
-│   │   ├── layout.tsx          # Root layout
-│   │   └── page.tsx            # Home page
+│   │   │   ├── page.tsx        # List with filters & pagination
+│   │   │   ├── new/            # Create transaction
+│   │   │   └── [id]/           # View & edit transaction
+│   │   ├── categories/         # Category pages
+│   │   ├── layout.tsx          # Root layout with navigation & toasts
+│   │   └── page.tsx            # Dashboard homepage
 │   ├── components/
-│   │   ├── ui/                 # Base UI components
-│   │   └── transactions/       # Transaction components
+│   │   ├── ui/                 # Reusable UI components
+│   │   │   ├── Button.tsx
+│   │   │   ├── Input.tsx
+│   │   │   ├── Modal.tsx
+│   │   │   ├── Loading.tsx     # Skeleton loaders & spinners
+│   │   │   └── EmptyState.tsx  # Empty state illustrations
+│   │   ├── transactions/       # Transaction-specific components
+│   │   ├── categories/         # Category-specific components
+│   │   ├── dashboard/          # Dashboard widgets
+│   │   └── layout/             # Navigation component
 │   ├── lib/
 │   │   ├── prisma.ts           # Prisma client singleton
-│   │   ├── validations.ts      # Zod schemas
+│   │   ├── validations.ts      # Zod validation schemas
 │   │   ├── formatters.ts       # Vietnamese formatters
+│   │   ├── date-utils.ts       # Date range calculations
+│   │   ├── csv-export.ts       # CSV generation utility
 │   │   └── errors.ts           # Error handling
 │   └── types/                  # TypeScript type definitions
-├── __tests__/                  # Test files
-├── specs/                      # Feature specifications
-└── .specify/                   # Project documentation
+├── __tests__/                  # Test files (unit, integration, E2E)
+├── specs/                      # Feature specifications & documentation
+└── .specify/                   # Project documentation & guides
 ```
 
 ## 🛠 Technology Stack
@@ -157,28 +176,31 @@ expense_tracker/
 
 ```bash
 # Development
-npm run dev              # Start development server
+npm run dev              # Start development server (http://localhost:3000)
 
 # Building
 npm run build           # Build for production
 npm run start           # Start production server
+
+# Code Quality
+npm run format          # Format code with Prettier
+npm run format:check    # Check code formatting
+npm run type-check      # Run TypeScript type checking
 
 # Testing
 npm test                # Run unit tests
 npm run test:watch      # Run tests in watch mode
 npm run test:coverage   # Run tests with coverage
 npm run test:integration # Run integration tests
-npm run test:e2e        # Run E2E tests
+npm run test:e2e        # Run E2E tests with Playwright
 npm run test:e2e:ui     # Run E2E tests with UI
 npm run test:e2e:headed # Run E2E tests with browser visible
 
-# Linting
-npm run lint            # Run ESLint
-
 # Database
-npx prisma studio       # Open Prisma Studio
-npx prisma migrate dev  # Run migrations
-npx prisma db seed      # Seed database
+npx prisma studio       # Open Prisma Studio (database GUI)
+npx prisma migrate dev  # Run database migrations
+npx prisma db seed      # Seed database with default categories
+npx tsx prisma/seed-performance.ts  # Seed 10,000+ test transactions
 ```
 
 ## 🌐 API Endpoints
@@ -220,7 +242,54 @@ npx prisma db seed      # Seed database
 - Y tế
 - Chi phí khác
 
-## 📄 License
+## � Deployment
+
+### Vercel (Recommended)
+
+1. **Push code to GitHub**
+2. **Import project on Vercel**: https://vercel.com/new
+3. **Configure environment variables**:
+   ```
+   DATABASE_URL="your-production-database-url"
+   ```
+4. **Deploy**: Vercel will auto-detect Next.js and deploy
+
+### Khác Platform (Railway, Render, etc.)
+
+1. **Database Setup**: PostgreSQL database required for production
+2. **Environment Variables**:
+   ```bash
+   DATABASE_URL="postgresql://user:password@host:5432/expense_tracker"
+   NODE_ENV="production"
+   ```
+3. **Build Commands**:
+   ```bash
+   npm install
+   npx prisma generate
+   npx prisma migrate deploy
+   npm run build
+   ```
+4. **Start Command**: `npm start`
+
+### Database Migration
+
+```bash
+# Production migration (do NOT use migrate dev)
+npx prisma migrate deploy
+
+# Seed default categories
+npx prisma db seed
+```
+
+### Performance Optimization
+
+- ✅ Next.js 16 automatic optimizations (code splitting, image optimization)
+- ✅ Static page generation where possible
+- ✅ API routes with server-side caching
+- ✅ Pagination for large datasets (20 items per page)
+- ✅ Database indexes on frequently queried fields
+
+## �📄 License
 
 ISC
 
