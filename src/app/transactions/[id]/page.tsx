@@ -1,14 +1,17 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 import { formatCurrency, formatDate } from '@/lib/formatters';
 import { Button } from '@/components/ui/Button';
 import { DeleteTransactionButton } from '@/components/transactions/DeleteTransactionButton';
 
 async function getTransaction(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/transactions/${id}`, {
-    cache: 'no-store',
+  const transaction = await prisma.transaction.findUnique({
+    where: { id },
+    include: { category: true },
   });
+  
+  const res = { ok: !!transaction, json: async () => ({ success: !!transaction, data: transaction }) };
 
   if (!res.ok) {
     return null;

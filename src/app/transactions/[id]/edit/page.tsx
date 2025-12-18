@@ -1,12 +1,15 @@
 import { notFound } from 'next/navigation';
 import { TransactionForm } from '@/components/transactions/TransactionForm';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 async function getTransaction(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/transactions/${id}`, {
-    cache: 'no-store',
+  const transaction = await prisma.transaction.findUnique({
+    where: { id },
+    include: { category: true },
   });
+  
+  const res = { ok: !!transaction, json: async () => ({ success: !!transaction, data: transaction }) };
 
   if (!res.ok) {
     return null;

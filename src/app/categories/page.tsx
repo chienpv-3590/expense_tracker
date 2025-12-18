@@ -1,18 +1,19 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 import { CategoryList } from '@/components/categories/CategoryList';
+import { prisma } from '@/lib/prisma';
 
 async function getCategories() {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/categories`, {
-    cache: 'no-store',
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      name: 'asc',
+    },
   });
 
-  if (!res.ok) {
-    throw new Error('Failed to fetch categories');
-  }
-
-  return res.json();
+  return {
+    success: true,
+    data: categories,
+  };
 }
 
 export default async function CategoriesPage() {

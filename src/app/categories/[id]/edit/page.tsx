@@ -1,12 +1,14 @@
 import { notFound } from 'next/navigation';
 import { CategoryForm } from '@/components/categories/CategoryForm';
 import Link from 'next/link';
+import { prisma } from '@/lib/prisma';
 
 async function getCategory(id: string) {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/categories/${id}`, {
-    cache: 'no-store',
+  const category = await prisma.category.findUnique({
+    where: { id },
   });
+  
+  const res = { ok: !!category, json: async () => ({ success: !!category, data: category }) };
 
   if (!res.ok) {
     return null;
