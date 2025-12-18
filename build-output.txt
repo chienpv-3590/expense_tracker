@@ -1,0 +1,39 @@
+
+> expense_tracker@1.0.0 build
+> next build
+
+   ▲ Next.js 16.0.10 (Turbopack)
+   - Environments: .env
+
+   Creating an optimized production build ...
+ ✓ Compiled successfully in 2.0s
+   Running TypeScript ...
+   Collecting page data using 11 workers ...
+   Generating static pages using 11 workers (0/11) ...
+   Generating static pages using 11 workers (2/11) 
+   Generating static pages using 11 workers (5/11) 
+   Generating static pages using 11 workers (8/11) 
+ ✓ Generating static pages using 11 workers (11/11) in 538.0ms
+   Finalizing page optimization ...
+
+Route (app)
+┌ ○ /
+├ ○ /_not-found
+├ ƒ /api/categories
+├ ƒ /api/categories/[id]
+├ ƒ /api/transactions
+├ ƒ /api/transactions/[id]
+├ ƒ /api/transactions/export
+├ ƒ /api/transactions/summary
+├ ƒ /categories
+├ ƒ /categories/[id]/edit
+├ ○ /categories/new
+├ ƒ /transactions
+├ ƒ /transactions/[id]
+├ ƒ /transactions/[id]/edit
+└ ○ /transactions/new
+
+
+○  (Static)   prerendered as static content
+ƒ  (Dynamic)  server-rendered on demand
+
